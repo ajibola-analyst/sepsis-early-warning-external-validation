@@ -1,11 +1,11 @@
 # Sepsis Early Warning: External Validation Across Hospital Systems
 
+**Live Demo:** [Streamlit App](https://sepsis-early-warning-external-validation.streamlit.app/) | **DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23019969.svg)](https://doi.org/10.5281/zenodo.23019969) | **Preprint:** *In Progress*
+
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![LightGBM](https://img.shields.io/badge/Model-LightGBM-green)
 ![SHAP](https://img.shields.io/badge/Explainability-SHAP-orange)
 ![License](https://img.shields.io/badge/Code-MIT-lightgrey)
-
-**Live demo:** <https://sepsis-early-warning-external-validation.streamlit.app/> | **DOI:** <zenodo DOI> | **Report:** <link>
 
 > Research prototype. Not a medical device. Not for clinical use.
 
@@ -17,7 +17,7 @@ The model was developed on one hospital system (Set A) and evaluated once, witho
 retuning, on another (Set B). Performance, calibration, subgroup behaviour and the
 physiological plausibility of its predictions are all reported.
 
-Author: Ajibola Odeyemi, BSc Physiology (LAUTECH). Physiology training guided the feature
+Author: Ajibola Odeyemi, Specialist in Quantitative & Qualitative Analytics. Physiology training guided the feature
 design and the interpretation of the model.
 
 ## Research question
