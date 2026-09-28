@@ -5,7 +5,7 @@
 ![SHAP](https://img.shields.io/badge/Explainability-SHAP-orange)
 ![License](https://img.shields.io/badge/Code-MIT-lightgrey)
 
-**Live demo:** <streamlit link> | **DOI:** <zenodo DOI> | **Report:** <link>
+**Live demo:** <https://sepsis-early-warning-external-validation.streamlit.app/> | **DOI:** <zenodo DOI> | **Report:** <link>
 
 > Research prototype. Not a medical device. Not for clinical use.
 
@@ -62,9 +62,7 @@ Subgroup AUROC on Set B (sex and age bands): see `reports/figures/subgroups.png`
 ![SHAP](reports/figures/shap_summary.png)
 
 ## Physiological interpretation
-<3 to 5 sentences: which features drive predicted risk, and why they make physiological
-sense (for example perfusion failure, lactate, respiratory rate). State honestly any top
-feature that reflects clinician behaviour rather than physiology.>
+Model predictions are strongly driven by systemic markers of tissue perfusion, cellular dysfunction, and acute inflammatory response[cite: 5]. High `Lactate` (>2.0 mmol/L) and elevated `FiO2` (increased oxygen demand) serve as primary indicators of anaerobic metabolism and respiratory failure[cite: 5]. `Resp_mean6` (tachypnea) and elevated `WBC` (leukocytosis) capture early systemic inflammatory response syndrome (SIRS)[cite: 5]. Renal markers (`Creatinine`, `BUN`) reflect progressive acute kidney injury secondary to septic hypoperfusion[cite: 5]. Notably, SHAP analysis of `shock_index` (Heart Rate / Systolic Blood Pressure) demonstrates a sharp non-linear increase in predicted sepsis risk beyond 0.9–1.0, capturing compensated circulatory collapse prior to overt hypotension. Non-physiological features like `ICULOS` (ICU length of stay) and `HospAdmTime` also contribute significantly, reflecting time-dependent baseline disease severity and clinical workflow patterns[cite: 5].
 
 ## Limitations
 - Retrospective data from two US hospital systems; not validated in African settings.
