@@ -17,8 +17,8 @@ The model was developed on one hospital system (Set A) and evaluated once, witho
 retuning, on another (Set B). Performance, calibration, subgroup behaviour and the
 physiological plausibility of its predictions are all reported.
 
-Author: Ajibola Odeyemi, Specialist in Quantitative & Qualitative Analytics. Physiology training guided the feature
-design and the interpretation of the model.
+Author: Ajibola Odeyemi, BSc Physiology, Specialist in Quantitative & Qualitative Analytics. Physiology training guided the feature
+design and the interpretation of the model's predictions.
 
 ## Research question
 Can routinely collected ICU vital signs and laboratory values, engineered using
@@ -62,7 +62,23 @@ Subgroup AUROC on Set B (sex and age bands): see `reports/figures/subgroups.png`
 ![SHAP](reports/figures/shap_summary.png)
 
 ## Physiological interpretation
-Model predictions are strongly driven by systemic markers of tissue perfusion, cellular dysfunction, and acute inflammatory response[cite: 5]. High `Lactate` (>2.0 mmol/L) and elevated `FiO2` (increased oxygen demand) serve as primary indicators of anaerobic metabolism and respiratory failure[cite: 5]. `Resp_mean6` (tachypnea) and elevated `WBC` (leukocytosis) capture early systemic inflammatory response syndrome (SIRS)[cite: 5]. Renal markers (`Creatinine`, `BUN`) reflect progressive acute kidney injury secondary to septic hypoperfusion[cite: 5]. Notably, SHAP analysis of `shock_index` (Heart Rate / Systolic Blood Pressure) demonstrates a sharp non-linear increase in predicted sepsis risk beyond 0.9–1.0, capturing compensated circulatory collapse prior to overt hypotension. Non-physiological features like `ICULOS` (ICU length of stay) and `HospAdmTime` also contribute significantly, reflecting time-dependent baseline disease severity and clinical workflow patterns[cite: 5].
+The single strongest driver of predicted risk is `ICULOS` (hours since ICU admission),
+which likely reflects both accumulating physiological deterioration and the fact that
+longer ICU stays carry a higher prior probability of eventual sepsis onset under this
+dataset's labelling scheme. This is flagged as a limitation below, since it means part
+of the model's signal may come from time-in-ICU rather than physiology alone.
+
+Beyond ICULOS, the next largest contributors are physiologically coherent: elevated
+`FiO2` (rising oxygen requirement, indicating respiratory compromise), `HospAdmTime`,
+`WBC` (leukocytosis, a marker of systemic inflammatory response), `Resp_mean6`
+(sustained tachypnea), and renal markers `Creatinine` and `BUN` (acute kidney injury
+secondary to hypoperfusion). `shock_index` (heart rate / systolic BP) shows a
+non-linear jump in predicted risk above roughly 0.9-1.0, consistent with the
+transition from compensated to decompensating circulatory status. `Lactate`,
+despite its central role in sepsis physiology, contributes comparatively little to
+this model's predictions (see `shap_summary.png`) — most values cluster near zero
+impact, likely because lactate is missing for a large share of hourly records and
+the model instead leans on more frequently measured markers.
 
 ## Limitations
 - Retrospective data from two US hospital systems; not validated in African settings.
@@ -71,6 +87,11 @@ Model predictions are strongly driven by systemic markers of tissue perfusion, c
 - Metrics are row-level. The official Challenge utility score is not reported.
 - Not validated on MIMIC-IV or eICU, and not tested prospectively.
 - Calibration on Set B shows over-prediction at high predicted risk; recalibration would be needed before any use in a new setting.
+- `ICULOS` is the dominant feature in SHAP analysis, which may partly reflect the
+  dataset's labelling scheme (longer stays carry a higher prior of eventual sepsis)
+  rather than physiology alone. This is a known caveat in ICU deterioration modelling
+  and should be investigated further (e.g. by testing the model's performance within
+  narrow ICULOS bands).
 
 ## Repository structure
 ```text
@@ -104,5 +125,13 @@ Sequence models (GRU/LSTM), validation on MIMIC-IV/eICU, and validation on Afric
 ICU cohorts.
 
 ## Citation and licence
-Please cite the dataset (Reyna MA et al., Crit Care Med 2020) and this repository
-(see `CITATION.cff`). Code: MIT. Data: CC BY-NC-SA 4.0 (original authors).
+If you use this work, please cite both the original dataset and this repository.
+
+**Dataset:** Reyna MA, Josef CS, Seyedi S, et al. "Early Prediction of Sepsis From
+Clinical Data: The PhysioNet/Computing in Cardiology Challenge 2019." *Critical Care
+Medicine*, 2020;48(2):210-217.
+
+**This repository:** see `CITATION.cff`, or cite via the DOI above.
+
+Code is released under the MIT License. The underlying dataset remains under its
+original CC BY-NC-SA 4.0 licence and is not redistributed here.
