@@ -26,7 +26,7 @@ def boot(d, n=100, seed=0):
 def alerts(d):
     d = d.assign(alert=d.p >= thr)
     first = d[d.alert].groupby("patient_id").ICULOS.min()
-    onset = d[d.SepsisLabel == 1].groupby("patient_id").ICULOS.min() + 6   # label starts 6h before onset
+    onset = d[d.SepsisLabel == 1].groupby("patient_id").ICULOS.min() + 6   
     nons = np.setdiff1d(d.patient_id.unique(), onset.index.values)
     lead = (onset - first.reindex(onset.index)).dropna()
     early = lead[lead >= 0]
