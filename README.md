@@ -1,6 +1,6 @@
 # Sepsis Early Warning: External Validation Across Hospital Systems
 
-**Live Demo:** [Streamlit App](https://sepsis-early-warning-external-validation.streamlit.app/) | **DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23019969.svg)](https://doi.org/10.5281/zenodo.23019969) | **Preprint:** *In Progress*
+**Live Demo:** [Streamlit App](https://sepsis-early-warning-external-validation.streamlit.app/) | **DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23047251.svg)](https://doi.org/10.5281/zenodo.23047251) | **Preprint:** *In Progress*
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![LightGBM](https://img.shields.io/badge/Model-LightGBM-green)
