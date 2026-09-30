@@ -4,6 +4,7 @@ type: software
 authors:
   - family-names: Odeyemi
     given-names: Ajibola
+orcid: "https://orcid.org/0009-0007-9924-1216"
 title: "Sepsis Early Warning: External Validation Across Hospital Systems"
 version: 1.0.1
 doi: 10.5281/zenodo.23019969
