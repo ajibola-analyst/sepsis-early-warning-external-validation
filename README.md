@@ -1,6 +1,6 @@
 # Sepsis Early Warning: External Validation Across Hospital Systems
 
-**Live Demo:** [Streamlit App](https://sepsis-early-warning-external-validation.streamlit.app/) | **DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23047251.svg)](https://doi.org/10.5281/zenodo.23047251) | **Preprint:** *In Progress*
+**Live Demo:** [Streamlit App](https://sepsis-early-warning-external-validation.streamlit.app/) | **DOI:** [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23196159.svg)](https://doi.org/10.5281/zenodo.23196159) | **Preprint:** [Zenodo](https://doi.org/10.5281/zenodo.23047251)
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![LightGBM](https://img.shields.io/badge/Model-LightGBM-green)
@@ -17,8 +17,7 @@ The model was developed on one hospital system (Set A) and evaluated once, witho
 retuning, on another (Set B). Performance, calibration, subgroup behaviour and the
 physiological plausibility of its predictions are all reported.
 
-Author: Ajibola Odeyemi, BSc Physiology, Specialist in Quantitative & Qualitative Analytics. Physiology training guided the feature
-design and the interpretation of the model's predictions.
+Author: Ajibola Ayomide Odeyemi, BSc Physiology (LAUTECH); Professional Diploma in Data Analytics (SQI College of ICT). Physiology training guided the feature design and the interpretation of the model's predictions.
 
 ## Research question
 Can routinely collected ICU vital signs and laboratory values, engineered using
@@ -68,17 +67,20 @@ longer ICU stays carry a higher prior probability of eventual sepsis onset under
 dataset's labelling scheme. This is flagged as a limitation below, since it means part
 of the model's signal may come from time-in-ICU rather than physiology alone.
 
-Beyond ICULOS, the next largest contributors are physiologically coherent: elevated
-`FiO2` (rising oxygen requirement, indicating respiratory compromise), `HospAdmTime`,
+Beyond ICULOS, the next most influential features are `FiO2` (rising oxygen
+requirement, indicating respiratory compromise) and `Lactate`. Lactate is a
+well-established marker of anaerobic metabolism and impaired tissue perfusion, but it
+is missing for most hourly records and most of its individual contributions sit near
+zero, with a smaller number of cases showing a large positive effect. It is informative
+when measured, but part of its importance may reflect that clinicians order lactate
+tests once sepsis is already suspected.
+
+The remaining contributors form a physiologically coherent picture: `HospAdmTime`,
 `WBC` (leukocytosis, a marker of systemic inflammatory response), `Resp_mean6`
 (sustained tachypnea), and renal markers `Creatinine` and `BUN` (acute kidney injury
 secondary to hypoperfusion). `shock_index` (heart rate / systolic BP) shows a
 non-linear jump in predicted risk above roughly 0.9-1.0, consistent with the
-transition from compensated to decompensating circulatory status. `Lactate`,
-despite its central role in sepsis physiology, contributes comparatively little to
-this model's predictions (see `shap_summary.png`) — most values cluster near zero
-impact, likely because lactate is missing for a large share of hourly records and
-the model instead leans on more frequently measured markers.
+transition from compensated to decompensating circulatory status.
 
 ## Limitations
 - Retrospective data from two US hospital systems; not validated in African settings.
@@ -92,6 +94,7 @@ the model instead leans on more frequently measured markers.
   rather than physiology alone. This is a known caveat in ICU deterioration modelling
   and should be investigated further (e.g. by testing the model's performance within
   narrow ICULOS bands).
+- `Lactate` is measured selectively, so part of its predictive value may reflect clinical suspicion rather than physiology alone.
 
 ## Repository structure
 ```text
@@ -127,9 +130,7 @@ ICU cohorts.
 ## Citation and licence
 If you use this work, please cite both the original dataset and this repository.
 
-**Dataset:** Reyna MA, Josef CS, Seyedi S, et al. "Early Prediction of Sepsis From
-Clinical Data: The PhysioNet/Computing in Cardiology Challenge 2019." *Critical Care
-Medicine*, 2020;48(2):210-217.
+**Dataset:** Reyna MA, Josef CS, Jeter R, Shashikumar SP, Westover MB, Nemati S, Clifford GD, Sharma A. "Early Prediction of Sepsis From Clinical Data: The PhysioNet/Computing in Cardiology Challenge 2019." *Critical Care Medicine*, 2020;48(2):210-217. https://doi.org/10.1097/CCM.0000000000004145
 
 **This repository:** see `CITATION.cff`, or cite via the DOI above.
 
